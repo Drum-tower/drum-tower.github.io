@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		proxy use socket5 on linux
+	</title>
+</head>
+<body>
+<h2 >1.配置 proxychains-ng</h2>
+	<p>1.$ sudo apt-get install proxychains</p>
+	<p>2.$ sudo vim /etc/proxychains.conf</p>
+	<pre>strict_chain
+    localnet 127.0.0.0/255.0.0.0
+    localnet 192.168.0.0/255.255.0.0
+    proxy_dns
+    tcp_read_time_out 15000
+    tcp_connect_time_out 8000
+    [ProxyList]
+    socks5  127.0.0.1 1080</pre>
+
+    <h2 >2.配置 privoxy</h2>
+	<p>1.$ sudo apt-get install privoxy</p>
+	<p>2.$ sudo vim /etc/privoxy/config</p>
+	<pre>listen-address  127.0.0.1:8118
+    forward-socks5   /               127.0.0.1:1080 .</pre>
+               <p>3.$ sudo /etc/init.d/privoxy start</p>
+               <p>4.$ netstat -tunlp | grep 8118</p>
+               <p>5.$ wget -e http-proxy=127.0.0.1:8118 --debug http://gist.github.com</p>
+</body>
+</html>
