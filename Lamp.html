@@ -1,13 +1,428 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-	<title>LINUX+APACHE+MYSQL+PHP</title>
+<title>Build a php project runtime environment in Amazon Linux</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+body { font:80% Verdana,Tahoma,Arial,sans-serif; }
+h1, h2, h3, h4 {  font-family: "Trebuchet MS",Georgia,"Times New Roman",serif; }
+ul.toc { padding: 4px; margin-left: 0; }
+ul.toc li { list-style-type:none; }
+ul.toc li.heading2 { margin-left: 1em; }
+ul.toc li.heading3 { margin-left: 2em; }
+a.wiki-anchor { display: none; margin-left: 6px; text-decoration: none; }
+a.wiki-anchor:hover { color: #aaa !important; text-decoration: none; }
+h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display: inline; color: #ddd; }
+</style>
 </head>
 <body>
-<p>
-	
+<a name="Build-a-php-project-runtime-environment-in-Amazon-Linux"></a>
+<h1 >Build a php project runtime environment in Amazon Linux<a href="#Build-a-php-project-runtime-environment-in-Amazon-Linux" class="wiki-anchor">&para;</a></h1>
 
-	
-</p>
+
+	<a name="reference-documentation"></a>
+<h2 >reference documentation<a href="#reference-documentation" class="wiki-anchor">&para;</a></h2>
+
+
+	<p><a class="external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/install-LAMP.html">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/install-LAMP.html</a></p>
+
+
+	<a name="1-create-a-instance-of-Amazon-Linux-on-aws-console"></a>
+<h2 >1. create a instance of Amazon Linux on aws console<a href="#1-create-a-instance-of-Amazon-Linux-on-aws-console" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1. open <a class="external" href="https://console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#Instances">https://console.aws.amazon.com/ec2/v2/home?region=ap-northeast-1#Instances</a>:</p>
+
+
+	<p>2. click "Launch Instance" button goto "launch instance wizard"</p>
+
+
+	<p>3. on "Step 1", choose "Amazon Linux AMI 2014.03.1" AMI</p>
+
+
+	<p>4. to modify other steps if necessary</p>
+
+
+	<p>5. change Security Group of this instance, open 22, 80 and 3306 ports</p>
+
+
+	<a name="2-connect"></a>
+<h2 >2. connect<a href="#2-connect" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1. try login default account</p>
+
+
+<blockquote>
+
+	<p>~/.ssh/aws_ambitious_staging_key.pem is the key pair for this instance</p>
+
+
+</blockquote>
+
+<blockquote>
+
+	<p>ec2-54-178-163-232.ap-northeast-1.compute.amazonaws.com is the public DNS for this instance</p>
+
+
+</blockquote>
+
+<pre>
+$ ssh -i ~/.ssh/aws_ambitious_staging_key.pem ec2-user@ec2-54-178-163-232.ap-northeast-1.compute.amazonaws.com
+</pre>
+
+	<p>2. add your ssh public key into /home/ec2-user/.ssh/authorized_keys</p>
+
+
+	<a name="3-update-system"></a>
+<h2 >3. update system<a href="#3-update-system" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1. yum update</p>
+
+
+<pre>
+$ sudo yum update -y
+$ sudo yum upgrade
+</pre>
+
+	<p>2. reboot</p>
+
+
+<pre>
+$ sudo reboot
+</pre>
+
+	<a name="4-install-basically-libraries"></a>
+<h2 >4. install basically libraries<a href="#4-install-basically-libraries" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+$ sudo yum install monit git
+$ sudo yum install ImageMagick ImageMagick-devel
+</pre>
+
+	<a name="5-install-ntp-and-modify-timezone"></a>
+<h2 >5. install ntp and modify timezone<a href="#5-install-ntp-and-modify-timezone" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>reference documentation: <a class="external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html</a></p>
+
+
+	<p>1. configure ntp</p>
+
+
+<pre>
+$ sudo yum install ntp
+$ sudo service ntpd start
+$ sudo chkconfig ntpd on
+$ sudo chkconfig --list ntpd
+</pre>
+
+	<p>2. configure timezone</p>
+
+
+<pre>
+$ sudo vi /etc/sysconfig/clock
+ZONE="Asia/Tokyo" 
+UTC=true
+$ sudo ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+$ sudo reboot
+</pre>
+
+	<a name="6-install-and-configure-apache2"></a>
+<h2 >6. install and configure apache2<a href="#6-install-and-configure-apache2" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1. install</p>
+
+
+<pre>
+$ sudo yum groupinstall -y "Web Server" # In Japanese, "Web サーバー" 
+$ sudo service httpd start
+$ sudo chkconfig httpd on
+$ chkconfig --list httpd
+</pre>
+
+	<p>2. check test page can access</p>
+
+
+	<p>browser open <a class="external" href="http://ec2-54-178-163-232.ap-northeast-1.compute.amazonaws.com">http://ec2-54-178-163-232.ap-northeast-1.compute.amazonaws.com</a></p>
+
+
+	<p>3. disable test page</p>
+
+
+<pre>
+$ sudo touch /var/www/html/index.html
+$ sudo mv /etc/httpd/conf.d/welcome.conf /etc/httpd/conf.d/welcome.conf.bak
+$ sudo service httpd restart
+</pre>
+
+	<a name="7-install-and-configure-mysql"></a>
+<h2 >7. install and configure mysql<a href="#7-install-and-configure-mysql" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1. install</p>
+
+
+<pre>
+$ sudo yum groupinstall -y "MySQL Database" # In Japanese "MySQL データベースサーバー" 
+$ sudo service mysqld start
+$ sudo chkconfig mysqld on
+$ chkconfig --list mysqld
+</pre>
+
+	<p>2. set root password</p>
+
+
+<pre>
+$ sudo /usr/bin/mysqladmin -u root password 'neoDB.pw2014!'
+</pre>
+
+	<p>3. configure</p>
+
+
+<pre>
+$ sudo vi /etc/my.cnf
+
+[mysqld]
+...
+default-storage-engine=INNODB
+character-set-server=utf8
+collation-server=utf8_general_ci
+
+[client]
+default-character-set=utf8
+
+[mysqld_safe]
+...
+
+$ sudo service mysqld restart
+</pre>
+
+	<p>4. connect and check chars</p>
+
+
+<pre>
+$ mysql -u root -p
+mysql&gt; show variables like '%char%';
+</pre>
+
+	<p>5. create database and access user of app</p>
+
+
+<pre>
+$ mysql -u root -p
+mysql&gt; create database my_php_app_staging;
+mysql&gt; create user 'my_php_app'@'localhost' identified by 'my_php_app_pa123456';
+mysql&gt; grant all privileges on my_php_app_staging.* to 'my_php_app'@'localhost';
+mysql&gt; exit
+$ mysql -u my_php_app -pmy_php_app_pa123456 my_php_app_staging
+</pre>
+
+	<p>6. create remote root</p>
+
+
+<pre>
+mysql -u root -p
+mysql&gt; create user 'remote_root'@'%' identified by 'MysqlRoot.pw2014!';
+mysql&gt; grant all privileges on *.* to 'remote_root'@'%';
+mysql&gt; exit
+</pre>
+
+	<a name="8-install-and-configure-php"></a>
+<h2 >8. install and configure php<a href="#8-install-and-configure-php" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1. install</p>
+
+
+<pre>
+$ sudo yum groupinstall -y "PHP Support" 
+</pre>
+
+	<p>2. install extension</p>
+
+
+<pre>
+$ sudo yum install -y php-mysql
+</pre>
+
+	<a name="9-create-and-configure-runtime-account"></a>
+<h2 >9. create and configure runtime account<a href="#9-create-and-configure-runtime-account" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1. create apps group</p>
+
+
+<pre>
+$ sudo groupadd apps
+</pre>
+
+	<p>2. create deploy user</p>
+
+
+<pre>
+$ sudo useradd -m -g apps -s /bin/bash deploy
+$ sudo passwd deploy # appsdeploypd
+$ sudo mkdir /home/deploy/.ssh
+$ sudo touch /home/deploy/.ssh/authorized_keys
+$ sudo vi /home/deploy/.ssh/authorized_keys # paste into your ssh public key
+$ sudo chown -R deploy:apps /home/deploy/.ssh/
+$ sudo chmod 700 /home/deploy/.ssh/
+$ sudo chmod 600 /home/deploy/.ssh/authorized_keys
+</pre>
+
+	<p>3. add deploy to apache group</p>
+
+
+<pre>
+$ sudo usermod -a -G apache deploy
+</pre>
+
+	<p>4.</p>
+
+
+<pre>
+$ sudo usermod -a -G apps apache
+</pre>
+
+	<a name="10-create-and-configure-php-project-working-directory"></a>
+<h2 >10. create and configure php project working directory<a href="#10-create-and-configure-php-project-working-directory" class="wiki-anchor">&para;</a></h2>
+
+
+	<p>1. create working directory</p>
+
+
+<pre>
+$ sudo mkdir -p /var/php_apps/my_php_app/current/log
+$ sudo chown -R deploy:apps /var/php_apps/my_php_app
+</pre>
+
+	<p>2. check phpinfo</p>
+
+
+<pre>
+$ sudo vi /var/php_apps/my_php_app/current/phpinfo.php
+
+&lt;?php
+$con=mysqli_connect("localhost","my_php_app","my_php_app_pa123456","my_php_app_staging");
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+mysqli_close($con);
+echo phpinfo(); 
+?&gt;
+
+$ sudo chown -R deploy:apps /var/php_apps/my_php_app
+</pre>
+
+	<p>4. config apache</p>
+
+
+<pre>
+$ sudo vi /etc/httpd/conf.d/my_php_app_staging.conf
+&lt;VirtualHost *:80&gt;
+  ServerAdmin info@plauyab.net
+  DocumentRoot "/var/php_apps/my_php_app/current" 
+  ServerName my_php_app.dev.plauyab.net
+  ErrorLog "/var/php_apps/my_php_app/current/log/apache_error.log" 
+  CustomLog "/var/php_apps/my_php_app/current/log/apache_access.log" common
+  &lt;Directory /var/php_apps/my_php_app/current&gt;
+      DirectoryIndex index.php
+      Options Indexes FollowSymLinks
+      AllowOverride All
+      Order allow,deny
+      Allow from all
+  &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+$ sudo service httpd restart
+
+</pre>
+
+	<p>5. access phpinfo.php</p>
+
+
+	<p>modify your /etc/hosts</p>
+
+
+	<p>browser open <a class="external" href="http://my_php_app.dev.plauyab.net/phpinfo.php">http://my_php_app.dev.plauyab.net/phpinfo.php</a></p>
+
+
+	<a name="11-install-rvm-ruby-runtime-environment"></a>
+<h2 >11. install rvm (ruby runtime environment)<a href="#11-install-rvm-ruby-runtime-environment" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+$ sudo su - root
+# curl -L https://get.rvm.io | bash -s stable
+# exit
+
+$ sudo su - root
+# rvm requirements
+# rvm install 2.1.1
+# rvm --default use 2.1.1
+# echo gem: --no-ri --no-rdoc &gt; ~/.gemrc
+# gem i bundler --pre
+# exit
+
+$ sudo usermod -a -G rvm deploy
+
+$ sudo su - deploy
+$ echo gem: --no-ri --no-rdoc &gt; ~/.gemrc
+$ rvm gemset create my_php_app
+$ exit
+
+</pre>
+
+	<a name="12-configure-logrotate"></a>
+<h2 >12. configure logrotate<a href="#12-configure-logrotate" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+$ sudo vi /etc/logrotate.d/my_php_app_staging
+
+/var/php_apps/my_php_app_staging/current/log/*.log {
+  daily
+  missingok
+  rotate 14
+  compress
+  delaycompress
+  notifempty
+  copytruncate
+}
+</pre>
+
+<pre>
+$ sudo service rsyslog restart
+</pre>
+
+	<a name="13-install-and-configure-monit"></a>
+<h2 >13. install and configure monit<a href="#13-install-and-configure-monit" class="wiki-anchor">&para;</a></h2>
+
+
+<pre>
+$ sudo yum install -y monit
+</pre>
+
+<pre>
+$ sudo vi /etc/monit.d/apache2
+
+check process apache2
+  with pidfile /var/run/httpd/httpd.pid
+  start program = "/etc/init.d/httpd start" 
+  stop program = "/etc/init.d/httpd stop" 
+  group apache2
+  if mem is greater than 300.0 MB for 1 cycles then restart       # eating up memory?
+  if cpu is greater than 50% for 2 cycles then alert              # send an email to admin
+  if cpu is greater than 80% for 3 cycles then restart            # hung process?
+
+</pre>
+
+<pre>
+$ sudo service monit start
+</pre>
 </body>
 </html>
