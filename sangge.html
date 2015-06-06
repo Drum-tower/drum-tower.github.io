@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<!-- saved from url=(0109)https://blog.svpino.com/2015/05/08/solution-to-problem-5-and-some-other-thoughts-about-this-type-of-questions -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+
+        
+        <meta name="title" content="Solution to Problem 5 and some other thoughts about this type of questions">
+        <meta itemprop="name" content="Solution to Problem 5 and some other thoughts about this type of questions"> 
+
+        <meta property="og:site_name" content="svpino.com">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Solution to Problem 5 and some other thoughts about this type of questions">
+        <meta property="og:url" content="https://blog.svpino.com/2015/05/08/solution-to-problem-5-and-some-other-thoughts-about-this-type-of-questions">
+        
+        <meta name="twitter:card" value="summary">
+        <meta name="twitter:title" content="Solution to Problem 5 and some other thoughts about this type of questions">
+        <meta name="twitter:site" value="@svpino">
+        <meta name="twitter:creator" value="@svpino">
+        <meta name="twitter:domain" content="blog.svpino.com">
+
+        
+            <meta name="og:description" content="Since I posted the 5 programming problems every Software Engineer should be able to solve in less than 1 hour last night, the post has way over a thousand comments in Reddit and most of them are related to Problem 5.">
+            <meta itemprop="description" content="Since I posted the 5 programming problems every Software Engineer should be able to solve in less than 1 hour last night, the post has way over a thousand comments in Reddit and most of them are related to Problem 5."> 
+            <meta name="description" content="Since I posted the 5 programming problems every Software Engineer should be able to solve in less than 1 hour last night, the post has way over a thousand comments in Reddit and most of them are related to Problem 5.">
+            <meta name="twitter:description" value="Since I posted the 5 programming problems every Software Engineer should be able to solve in less than 1 hour last night, the post has way over a thousand comments in Reddit and most of them are related to Problem 5.">
+        
+    
+
+    <link rel="canonical" href="https://blog.svpino.com/">
+    <link rel="author" href="https://plus.google.com/+SantiagoLValdarrama/posts">
+    <link rel="publisher" href="https://plus.google.com/+SantiagoLValdarrama/posts">
+    <link rel="alternate" type="application/rss+xml" title="svpino.com" href="http://feed.svpino.com/">
+    <link href="https://plus.google.com/+SantiagoLValdarrama?rel=author">
+    <link rel="icon" href="https://blog.svpino.com/favicon.ico" type="image/x-icon">
+
+    <link href="./sangge_files/css" rel="stylesheet" type="text/css">
+
+    <title>
+        
+            Solution to Problem 5 and some other thoughts about this type of questions
+         
+    </title>
+    <style>
+        html { -webkit-font-smoothing: antialiased; }
+body { font-family: 'Source Sans Pro', sans-serif; font-size: 19px; line-height: 1.4; margin: 0 10px; color: rgba(0,0,0,0.78); letter-spacing: 0.01rem;}
+h1 { font-size: 2em; font-weight: 700; margin: 0; line-height: 1.2; }
+h2 { font-size: 1.6em; font-weight: 300; }
+h3 { font-size: 1.2em; font-weight: 300; }
+ol li, ul li { margin-top: 10px; }
+pre { overflow: auto; font-size: 13px; line-height: 19px; padding: 10px; font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace; background-color: #F7F7FA; border-radius: 3px; color: #333; }
+blockquote { border-left: 2px solid #f2f2f2; padding-left: 20px; margin-left: 40px;color:#797979; }
+
+code { font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace; word-wrap: break-word; font-size: 18px;}
+pre code { font-size: 13px; line-height: 19px}
+
+a { color: #215FA3; text-decoration: none; -webkit-transition: color .8s ease; -moz-transition: color .8s ease; -o-transition: color .8s ease; transition: color .8s ease; }
+a:hover { color: #000; text-decoration: none; }
+h1 a { color: #000;}
+h1 a:hover { color:#215FA3; }
+article { margin-bottom: 80px;}
+article h1 { margin: 5px 0 30px 0; }
+article p:first-of-type { margin-top: 5px; }
+article:last-child { margin-bottom: 40px;}
+article div.entry-content a:hover { text-decoration: underline; }
+
+.social-icons { margin-top: 30px; text-align: center;}
+
+.social-icon { margin-right: 16px; color: #cccccc; overflow: hidden; cursor: pointer; }
+.social-icon a { text-decoration: none; color: #ccc; }
+.social-icon .icon { display: inline-block; width: 42px; height: 42px; fill: #ccc; transition: fill .5s ease;}
+
+.social-icons .social-icon .icon-facebook:hover { fill: #3b5998; }
+.social-icons .social-icon .icon-twitter:hover { fill: #00aced; }
+.social-icons .social-icon .icon-linkedin:hover { fill: #007bb6; }
+.social-icons .social-icon .icon-googleplus:hover { fill: #dd4b39; }
+.social-icons .social-icon .icon-rss:hover { fill: #ff6600; }
+
+
+#main { max-width: 730px;margin: 0 auto;}
+#content {margin: 0;min-width: 300px;}
+#footer { clear: both; margin: 20px auto 0 auto; padding:20px 0 0 0; font-size: 0.72em;color: #797979;}
+#footer .content { min-width: 320px; max-width: 730px; margin: 0 auto; }
+#footer .content .title { color: #282828; font-weight: 700; font-size: 16px; margin-bottom: 10px; border-bottom:1px solid #eee; padding-bottom: 10px;}
+#footer .content .article { margin-top: 30px; }
+#footer .content .article h3 { font-size: 30px; margin: 0 0 8px 0; line-height: 34px; }
+#footer .content .article h3 a { color: #4F4F4F;}
+#footer .content .article h3 a:hover { color:#215FA3;text-decoration: none;  }
+#footer .content .article p { font-size: 20px; margin: 0;}
+#footer .content .article .date { padding: 10px 0 30px 0; border-bottom:1px solid #eee; color: #aaa; }
+#footer .content .copyright { text-align: center; margin-top: 20px; padding-bottom: 30px;}
+
+img { width: 100%; }
+
+#archive a { color: #000; }
+#archive a:hover { color:#215FA3; }
+#archive p {margin: 10px 0 40px 0;}
+
+.pagination { margin-bottom: 20px; float: left; width: 100%; padding-top: 20px; border-top: 1px solid #eee; }
+
+article .date {font-size: 0.8em; color: #999;}
+
+.small-viewport { display: none; }
+.medium-viewport { display: none; }
+.large-viewport { display: block; }
+
+@media all and (min-width:480px) {
+	body { font-size: 22px; }
+}
+
+@media all and (max-width:480px) {
+	.pagination { font-size: 18px;}
+}
+        #header { height: 120px; margin: 10px auto 0 auto;max-width: 730px; min-width: 300px; text-align: center; font-size: 0.72em; color: #797979; }
+        #header div {margin-bottom: 3px;}
+        #header a:hover, #footer a:hover { text-decoration: underline; }
+
+        div.tweet { margin: 0 auto;width: 506px; }
+        
+        .ads { margin: 60px 0 0 0; padding: 60px 0 0 0; width:100%; border-top: 1px solid #eee; }
+
+        #article-footer { padding-top: 20px; text-align: center; color: #999; font-size: 0.9em;}
+        #article-footer p { margin: 0;}
+        #article-footer .text {border-top: 1px solid #eee;margin-top: 40px; padding-top: 40px;}
+
+        form.subscribe { max-width: 460px; background-color: #f2f3f4; border-radius: 3px; margin: 40px auto 0 auto; color: #282828; padding: 0 30px; }
+        form.subscribe input[type='text'] { width: 70%; border: 1px solid #ddd; font-size: 18px; padding: 2px 16px; line-height: 38px; border-radius: 3px; text-align: center; }
+        form.subscribe input[type='submit'] { color: #FFF; background-color: #282828; display: inline-block; padding: 8px 22px; cursor: pointer; font-size: 20px; border-style: none; font-family: 'Source Sans Pro', sans-serif; margin-top: 10px; letter-spacing: 0.1em;}
+        form.subscribe .header { font-size: 2em; padding: 40px 0 0 0 ; font-weight: 300; }
+        form.subscribe .top { padding: 30px 0 30px 0; font-size: 0.8em; font-weight: 700;}
+        form.subscribe .email {text-transform: uppercase;font-size: 0.8em;letter-spacing: 0.1em;margin-bottom: 10px;}
+        form.subscribe .fine { padding: 20px 0 40px 0; color: #747474; font-size: 0.7em; width: 250px; margin: 0 auto;}
+
+        .video-container { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
+        .video-container iframe, .video-container object, .video-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        
+
+        @media all and (max-width: 700px) {
+            #header {height: 80px;}
+            .small-viewport { display: none; }
+            .medium-viewport { display: block; }
+            .large-viewport { display: none; }
+        }
+
+        @media all and (max-width:490px) {
+            ol li, ul li { margin-top: 5px; }
+            blockquote { padding-left: 10px; margin-left: 10px; }
+            .small-viewport { display: block; }
+            .medium-viewport { display: none; }
+            .large-viewport { display: none; }
+        }
+    </style>
+</head>
+<body data-twttr-rendered="true">
+    <svg display="none" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="320" height="32" viewBox="0 0 320 32">
+        <defs>
+            <g id="icon-twitter"><path class="path1" d="M16 0c-8.846 0-16 7.154-16 16s7.154 16 16 16 16-7.154 16-16c0-8.846-7.154-16-16-16zM24.065 12.813c0 0.195 0 0.325 0 0.52 0 5.333-4.033 11.512-11.512 11.512-2.276 0-4.423-0.65-6.179-1.821 0.325 0.065 0.65 0.065 0.976 0.065 1.886 0 3.642-0.65 5.008-1.756-1.756-0.065-3.252-1.171-3.772-2.797 0.26 0.065 0.52 0.065 0.78 0.065 0.39 0 0.715-0.065 1.041-0.13-1.821-0.39-3.252-2.016-3.252-3.967 0 0 0-0.065 0-0.065 0.52 0.325 1.171 0.455 1.821 0.52-1.106-0.715-1.821-1.951-1.821-3.382 0-0.715 0.195-1.431 0.52-2.016 2.016 2.472 4.943 4.033 8.325 4.228-0.065-0.325-0.13-0.585-0.13-0.911 0-2.211 1.821-4.033 4.033-4.033 1.171 0 2.211 0.52 2.927 1.301 0.911-0.195 1.756-0.52 2.537-0.976-0.325 0.976-0.911 1.756-1.756 2.211 0.846-0.13 1.626-0.325 2.341-0.65-0.39 0.78-1.106 1.496-1.886 2.081z"></path></g>
+            <g id="icon-facebook"><path class="path1" d="M16 0c-8.846 0-16 7.154-16 16s7.154 16 16 16 16-7.154 16-16c0-8.846-7.154-16-16-16zM20.228 15.935h-2.797c0 4.423 0 9.886 0 9.886h-4.098c0 0 0-5.398 0-9.886h-1.951v-3.512h1.951v-2.276c0-1.626 0.78-4.163 4.163-4.163h3.057v3.382c0 0-1.821 0-2.211 0s-0.846 0.195-0.846 0.976v2.081h3.122l-0.39 3.512z"></path></g>
+            <g id="icon-linkedin"><path class="path1" d="M16 0c-8.846 0-16 7.154-16 16s7.154 16 16 16c8.846 0 16-7.154 16-16s-7.154-16-16-16zM24.911 23.805c0 0.715-0.585 1.301-1.301 1.301h-15.22c-0.715 0-1.301-0.585-1.301-1.301v-15.415c0-0.715 0.585-1.301 1.301-1.301h15.22c0.715 0 1.301 0.585 1.301 1.301v15.415z"></path><path class="path2" d="M19.122 13.854c-1.431 0-2.081 0.78-2.407 1.366v0 0c0 0 0 0 0 0v-1.171h-2.667c0.065 0.78 0 8.13 0 8.13h2.667v-4.553c0-0.26 0-0.455 0.065-0.65 0.195-0.455 0.65-0.976 1.366-0.976 0.976 0 1.366 0.715 1.366 1.821v4.358h2.732v-4.683c0-2.472-1.366-3.642-3.122-3.642z"></path><path class="path3" d="M11.122 10.146c-0.911 0-1.496 0.585-1.496 1.431 0 0.78 0.585 1.431 1.496 1.431v0c0.911 0 1.496-0.65 1.496-1.431 0-0.846-0.52-1.431-1.496-1.431z"></path><path class="path4" d="M9.756 14.049h2.732v8.13h-2.732v-8.13z"></path></g>
+            <g id="icon-googleplus"><path class="path1" d="M13.008 14.829c0.39 0 0.78-0.13 1.041-0.455 0.39-0.455 0.585-1.236 0.52-2.081-0.195-1.496-1.236-2.732-2.341-2.732h-0.065c-0.39 0-0.715 0.13-1.041 0.455-0.39 0.455-0.585 1.236-0.455 2.016 0.195 1.496 1.236 2.797 2.341 2.797v0z"></path><path class="path2" d="M14.244 19.317c-0.13-0.065-0.195-0.13-0.325-0.26-0.325-0.13-0.715-0.13-1.106-0.195h-0.065c-1.691 0-3.187 1.041-3.187 2.211 0 1.301 1.301 2.276 2.927 2.276 2.146 0 3.252-0.715 3.252-2.211 0-0.13 0-0.26-0.065-0.455-0.13-0.455-0.65-0.846-1.431-1.366z"></path><path class="path3" d="M16 0c-8.846 0-16 7.154-16 16s7.154 16 16 16c8.846 0 16-7.154 16-16s-7.154-16-16-16zM14.569 24.715c-0.65 0.195-1.301 0.26-2.081 0.26s-1.561-0.065-2.276-0.26c-1.431-0.325-2.406-1.041-2.927-1.886-0.195-0.39-0.325-0.78-0.325-1.171 0-0.455 0.13-0.846 0.325-1.301 0.78-1.626 2.797-2.732 5.008-2.732 0 0 0.065 0 0.065 0-0.195-0.325-0.26-0.65-0.26-0.976 0-0.195 0-0.325 0.065-0.52-2.341-0.065-4.098-1.756-4.098-4.033 0-1.626 1.301-3.187 3.122-3.772 0.52-0.195 1.106-0.26 1.626-0.26h5.008c0.195 0 0.325 0.13 0.39 0.26 0.065 0.195 0 0.325-0.13 0.455l-1.106 0.78c-0.065 0.065-0.13 0.065-0.26 0.065h-0.39c0.52 0.65 0.846 1.496 0.846 2.472 0 1.106-0.585 2.146-1.561 2.927-0.78 0.585-0.78 0.78-0.78 1.106 0 0.195 0.585 0.846 1.171 1.236 1.431 0.976 1.951 1.951 1.951 3.577-0.13 1.756-1.431 3.187-3.382 3.772zM25.886 16.13c0 0.195-0.195 0.39-0.39 0.39h-2.862v2.862c0 0.195-0.195 0.39-0.39 0.39h-0.78c-0.195 0-0.39-0.195-0.39-0.39v-2.862h-2.862c-0.195 0-0.39-0.195-0.39-0.39v-0.78c0-0.195 0.195-0.39 0.39-0.39h2.862v-2.862c0-0.195 0.195-0.39 0.39-0.39h0.78c0.195 0 0.39 0.195 0.39 0.39v2.862h2.862c0.195 0 0.39 0.195 0.39 0.39v0.78z"></path></g>
+            <g id="icon-tumblr"><path class="path1" d="M16 0c-8.846 0-16 7.154-16 16s7.154 16 16 16 16-7.154 16-16c0-8.846-7.154-16-16-16zM21.593 24.846c-0.846 0.39-1.626 0.715-2.341 0.846-0.715 0.195-1.431 0.26-2.276 0.26-0.911 0-1.496-0.13-2.146-0.325-0.715-0.26-1.301-0.585-1.821-0.976-0.52-0.455-0.846-0.911-1.041-1.366-0.195-0.52-0.26-1.236-0.26-2.146v-7.089h-2.732v-2.862c0.78-0.26 1.691-0.65 2.276-1.106s1.041-1.041 1.366-1.756c0.325-0.65 0.585-1.496 0.715-2.602h2.862v4.683h4.618v3.577h-4.683v5.203c0 1.171 0 1.821 0.13 2.146s0.455 0.65 0.78 0.846c0.455 0.26 0.976 0.39 1.561 0.39 1.041 0 2.016-0.325 3.057-0.976v3.252z"></path></g>
+            <g id="icon-rss"><path class="path1" d="M16 0c-8.846 0-16 7.154-16 16s7.154 16 16 16 16-7.154 16-16c0-8.846-7.154-16-16-16zM11.057 23.22c-1.171 0-2.081-0.976-2.081-2.081 0-1.171 0.911-2.081 2.081-2.081s2.081 0.911 2.081 2.081c0 1.171-0.911 2.081-2.081 2.081zM16.325 23.285c0-2.016-0.78-3.837-2.146-5.268s-3.252-2.146-5.203-2.146v-3.057c5.724 0 10.407 4.683 10.407 10.472h-3.057zM21.724 23.285c0-7.089-5.724-12.813-12.748-12.813v-3.057c8.65 0 15.74 7.089 15.74 15.87h-2.992z"></path></g>
+        </defs>
+    </svg>
+
+    <header id="header">
+        <nav>
+        <div class="large-viewport">
+            You're reading <a href="https://blog.svpino.com/" title="svpino.com">svpino.com</a>, a blog written by <a class="vcard author" href="https://blog.svpino.com/about" title="Santiago L. Valdarrama">Santiago L. Valdarrama</a> about software engineering.     
+        </div>
+        <div class="medium-viewport">
+            <a href="https://blog.svpino.com/" title="svpino.com">svpino.com</a> is written by <a class="vcard author" href="https://blog.svpino.com/about" title="Santiago L. Valdarrama">Santiago L. Valdarrama</a>.     
+        </div>
+        <div class="small-viewport">
+            <a href="https://blog.svpino.com/" title="svpino.com">svpino.com</a> by <a class="vcard author" href="https://blog.svpino.com/about" title="Santiago L. Valdarrama">Santiago L. Valdarrama</a>     
+        </div>
+        <div class="large-viewport">
+            You can follow me on <a href="https://twitter.com/svpino" title="svpino on Twitter">Twitter</a>, visit the <a href="https://blog.svpino.com/archive" title="Archive">archive</a>, or subscribe to my <a href="http://feed.svpino.com/" title="Subscribe to svpino.com RSS feed">RSS feed</a>.
+        </div>
+        <div class="medium-viewport">
+            I'm on <a href="https://twitter.com/svpino" title="svpino on Twitter">Twitter</a>, and here is my <a href="http://feed.svpino.com/" title="Subscribe to svpino.com RSS feed">RSS feed</a>.
+        </div>
+        <div class="small-viewport">
+            Follow me on <a href="https://twitter.com/svpino" title="svpino on Twitter">Twitter</a>.
+        </div>
+        </nav>
+    </header>
+    <div id="main">
+        <section id="content">
+                
+                
+                    <article itemscope="" itemtype="http://schema.org/Article" class="hentry">
+                    <header>
+                        <time itemprop="datePublished" content="2015-05-08" class="date published updated" datetime="2015-05-08">May 8, 2015</time>
+
+                        
+                            <h1 itemprop="name" class="entry-title">Solution to Problem 5 and some other thoughts about this type of questions</h1>
+                        
+                    </header>
+
+                    <div itemprop="articleBody" class="entry-content">
+                    
+<p>Since I posted the <a href="https://blog.svpino.com/2015/05/07/five-programming-problems-every-software-engineer-should-be-able-to-solve-in-less-than-1-hour">5 programming problems every Software Engineer should be able to solve in less than 1 hour</a> last night, the post has way over a thousand comments in <a href="http://www.reddit.com/r/programming/comments/358tnp/five_programming_problems_every_software_engineer/">Reddit</a> and most of them are related to Problem 5.</p>
+<p>Everyone agrees that the first 4 problems are relatively easy to solve (being Problem 4 a little bit more complicated), but apparently Problem 5 has multiple people wondering whether it can actually be completed under 1 hour (together with the other 4.)</p>
+<p>Let's review the way I'd approach the problem and some Java code to solve it.</p>
+<h2>Solution to Problem 5</h2>
+<p>Here is the problem again, just in case you didn't read the <a href="https://blog.svpino.com/2015/05/07/five-programming-problems-every-software-engineer-should-be-able-to-solve-in-less-than-1-hour">previous post</a>:</p>
+<blockquote>
+<p>Write a program that outputs all possibilities to put <code>+</code> or <code>-</code> or nothing between the numbers 1, 2, ..., 9 (in this order) such that the result is always 100. For example: 1 + 2 + 34 – 5 + 67 – 8 + 9 = 100.</p>
+</blockquote>
+<p>I think it looks harder than it really is. To solve it, I'd try to decompose the problem into smaller problems (you know, the classic <a href="http://en.wikipedia.org/wiki/Divide_and_conquer_algorithms">Divide and conquer</a>). </p>
+<p>So let's start with what we know:</p>
+<ul>
+<li>f(1..9) = 100</li>
+</ul>
+<p>Here <em>f</em> is the function that returns our final equation. From here we can break this into 3 other pieces:</p>
+<ul>
+<li>1 + f(2..9) = 100</li>
+<li>1 - f(2..9) = 100</li>
+<li>f(12, 3..9) = 100</li>
+</ul>
+<p>The first equation uses an addition, the second uses subtraction, and the third equation concatenates the first two numbers. From here, we get the following:</p>
+<ul>
+<li>f(2..9) = 100 - 1 = 99</li>
+<li>f(-2, 3..9) = 100 - 1 = 99</li>
+<li>f(12, 3..9) = 100</li>
+</ul>
+<p>(Note how I moved the negative sign into the function on the second equation to keep the result the same.)</p>
+<p>From here, we can keep working on each one of the equations above doing the same process:</p>
+<ul>
+<li>2 + f(3..9) = 99</li>
+<li>2 - f(3..9) = 99</li>
+<li>f(23, 4..9) = 99</li>
+<li>-2 + f(3..9) = 99</li>
+<li>-2 - f(3..9) = 99</li>
+<li>f(-23, 4..9) = 99</li>
+<li>12 + f(3..9) = 100</li>
+<li>12 - f(3..9) = 100</li>
+<li>f(123, 4..9) = 100</li>
+</ul>
+<p>You'd have to keep doing this until you completely eliminate the function <em>f</em>. From there, each branch where the equality holds represents a solution to the problem, so you can backtrack your steps to stitch the resultant equation together.</p>
+<h2>The source code</h2>
+<p>Of course nobody is going to follow the above solution manually, but it shouldn't be too hard to code it:</p>
+<pre>import java.util.ArrayList;
+
+public class Main {
+
+    private static int TARGET_SUM = 100;
+    private static int[] VALUES = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+    static ArrayList<string> add(int digit, String sign, ArrayList<string> branches) {
+        for (int i = 0; i &lt; branches.size(); i++) {
+            branches.set(i, digit + sign + branches.get(i));
+        }
+
+        return branches;
+    }
+
+    static ArrayList<string> f(int sum, int number, int index) {
+        int digit = Math.abs(number % 10);
+        if (index &gt;= VALUES.length) {
+            if (sum == number) {
+                ArrayList<string> result = new ArrayList<string>();
+                result.add(Integer.toString(digit));
+                return result;
+            }
+            else {
+                return new ArrayList<string>();
+            }
+        }
+
+        ArrayList<string> branch1 = f(sum - number, VALUES[index], index + 1);
+        ArrayList<string> branch2 = f(sum - number, -VALUES[index], index + 1);
+
+        int concatenatedNumber = number &gt;= 0
+            ? 10 * number + VALUES[index]
+            : 10 * number - VALUES[index];
+        ArrayList<string> branch3 = f(sum, concatenatedNumber, index + 1);
+
+        ArrayList<string> results = new ArrayList<string>();
+
+        results.addAll(add(digit, "+", branch1));
+        results.addAll(add(digit, "-", branch2));
+        results.addAll(add(digit, "", branch3));
+
+        return results;
+    }
+
+    public static void main(String[] args) {
+        for (String string : f(TARGET_SUM, VALUES[0], 1)) {
+            System.out.println(string);
+        }
+
+    }
+}
+</string></string></string></string></string></string></string></string></string></string></string></pre>
+
+<p>This returns 11 possible solutions:</p>
+<ul>
+<li>1 + 2 + 3 - 4 + 5 + 6 + 78 + 9</li>
+<li>1 + 2 + 34 - 5 + 67 - 8 + 9</li>
+<li>1 + 23 - 4 + 5 + 6 + 78 - 9</li>
+<li>1 + 23 - 4 + 56 + 7 + 8 + 9</li>
+<li>12 + 3 + 4 + 5 - 6 - 7 + 89</li>
+<li>12 + 3 - 4 + 5 + 67 + 8 + 9</li>
+<li>12 - 3 - 4 + 5 - 6 + 7 + 89</li>
+<li>123 + 4 - 5 + 67 - 89</li>
+<li>123 + 45 - 67 + 8 - 9</li>
+<li>123 - 4 - 5 - 6 - 7 + 8 - 9</li>
+<li>123 - 45 - 67 + 89</li>
+</ul>
+<p><em>(I'm sure there are better solutions to this problem. I'd love to see them, so please <a href="https://twitter.com/svpino">contact me</a> if you have one.)</em></p>
+<h2>Can this actually be done in less than 1 hour?</h2>
+<p>Contrary to what some people think, there's no hidden trick on this problem or any special Math knowledge you have to know to solve it. This is a classic recursion problem that anybody with knowledge on the subject should be able to solve really quick.</p>
+<p>Implementing it can be tricky, yes. If you are doing it in a whiteboard, of course it will be really difficult, but nobody said that whiteboard coding is a good thing. </p>
+<h2>A few more words about the previous post</h2>
+<p>A bunch of people got up in arms because exercises like this shouldn't be asked in an interview. I disagree.</p>
+<p>As long as there are no hidden tricks, or special knowledge involved, or any other gotchas, I think these are perfectly valid questions to ask.</p>
+<p>I never said that you'll be hired if you know how to answer these problems, but I won't consider you if you can't.  </p>
+<p>Everyone has a way. This is mine.</p>
+<h2>Update: More programming challenges</h2>
+<p>I love these type of programming problems. I'm going to try to publish one problem every weekend, hoping I'll have the time to find a good one and solve it myself. Here is the first one to celebrate Mother's Day: <a href="https://blog.svpino.com/2015/05/10/programming-challenge-rotating-a-matrix-90-degrees-in-place">Programming challenge: rotating a matrix 90 degrees in place</a>.</p>
+<p>Please, <a href="https://twitter.com/svpino">get in touch with me</a> and send me your favorite challenges. </p>
+                    </div>
+
+                    
+                        <div id="article-footer">
+
+                        <div class="share" style="text-align: right">
+                            <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./sangge_files/tweet_button.54460a335ba528591a034cfb509bdf51.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="position: static; visibility: visible; width: 107px; height: 28px;"></iframe>
+<script async="" type="text/javascript" src="./sangge_files/ca-pub-3392991954338731.js"></script><script async="" src="./sangge_files/analytics.js"></script><script id="twitter-wjs" src="./sangge_files/widgets.js"></script><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script> 
+                        </div>
+
+                            <div class="text">
+                                <p>Have something to say about this post? <a href="https://twitter.com/svpino">Get in touch!</a></p>
+                                <p>Want to read more? <a href="https://blog.svpino.com/archive">Visit the archive</a>.</p>
+                            </div>
+
+                            <div class="social-icons">
+                                <span class="social-icon"><a href="http://feed.svpino.com/" target="_blank"><svg class="icon icon-rss" viewBox="0 0 32 32"><use xlink:href="#icon-rss"></use></svg></a></span>
+                                <span class="social-icon"><a href="https://twitter.com/svpino" target="_blank"><svg class="icon icon-twitter" viewBox="0 0 32 32"><use xlink:href="#icon-twitter"></use></svg></a></span>
+                                <span class="social-icon"><a href="https://plus.google.com/+SantiagoLValdarrama/about" target="_blank"><svg class="icon icon-googleplus" viewBox="0 0 32 32"><use xlink:href="#icon-googleplus"></use></svg></a></span>
+                            </div>
+
+                            <form class="subscribe" action="https://feed.press/e/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#39;https://feed.press/e/mailverify?feed_id=svpino&#39;, &#39;popupwindow&#39;,
+&#39;scrollbars=yes,width=550,height=400&#39;);return true">
+                                <div class="header">
+                                    LET'S <strong>STAY IN TOUCH</strong>!
+                                </div>
+                                <div class="top">
+                                    EVERY POST DELIVERED TO YOUR MAILBOX
+                                </div>
+                                <p>
+                                    </p><div class="email">YOUR EMAIL ADDRESS</div>
+                                    <input type="text" name="email" placeholder="you@domain.com">
+                                <p></p>
+                                <input type="hidden" value="svpino" name="feed_id">
+                                <input type="submit" value="SUBSCRIBE">
+                                 <div class="fine">
+                                    One email per week. I won't spam you. You can unsubscribe at any time.
+                                </div>
+                            </form>
+
+                            <div class="ads">
+                                <script async="" src="./sangge_files/adsbygoogle.js"></script>
+                                <ins class="adsbygoogle" style="display: block; height: 90px;" data-ad-client="ca-pub-3392991954338731" data-ad-slot="1114653243" data-ad-format="auto" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:730px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:730px;background-color:transparent"><iframe width="730" height="90" frameborder="0" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;"></iframe></ins></ins></ins>
+                                <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({});
+                                </script>                                
+                            </div>
+
+                        </div>
+                    
+
+                    </article>
+                
+
+                
+                    
+                
+            
+        </section>
+
+    </div>
+    
+    <footer id="footer">
+        <div class="content">
+            
+            <div class="title">POPULAR STORIES</div>
+            <div class="article">
+                <h3><a href="https://blog.svpino.com/2015/03/31/the-unremarkable-career-of-some-modern-software-developers">The unremarkable career of (some) modern software developers</a></h3>
+                <p>Certain things in Computer Science haven't changed and probably won't for a long time: the foundation of this career is extremely important. Choose to ignore it and you'll be walking forever an unremarkable path.</p>
+                <div class="date">March 31, 2015</div>
+            </div>
+            <div class="article">
+                <h3><a href="https://blog.svpino.com/2015/04/22/the-thing-with-code-clarity-you-cant-be-proud-of-something-I-cant-read">The thing with code clarity: you can't be proud of something I can't read</a></h3>
+                <p>Any intelligent fool can make things bigger, more complex, and more violent. It takes a touch of genius - and a lot of courage - to move in the opposite direction.</p>
+                <div class="date">April 22, 2015</div>
+            </div>
+            <div class="article">
+                <h3><a href="https://blog.svpino.com/2014/10/15/is-a-single-page-application-what-you-really-need">Five programming problems every Software Engineer should be able to solve in less than 1 hour</a></h3>
+                <p>Whenever I post a job request for a Software Engineer position, applications start trickling in really quick. What bothers me is that several applicants will invariably have no idea of what "programming" means.</p>
+                <div class="date">May 7, 2015</div>
+            </div>
+            
+
+            <div class="copyright">
+                Copyright © 2010 - 2015 <a class="vcard author" href="https://blog.svpino.com/about" title="Santiago L. Valdarrama">Santiago L. Valdarrama</a>.
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-10240570-1', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+    </script>      
+
+</body></html>
