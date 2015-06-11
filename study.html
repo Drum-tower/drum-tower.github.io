@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-us"><head>
+<meta charset="utf-8">
+<meta content="IE=edge" http-equiv="X-UA-Compatible">
+<!-- <meta content="width=device-width, initial-scale=1" name="viewport"> -->
+<title>那些年 我们浏览过的网址</title>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body class="bg">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+<div class="container">
+<div class="collapse navbar-collapse" id="navbar">
+<ul class="nav navbar-nav">
+<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal">点我有惊喜</button>
+</ul>
+</div>
+</div>
+</nav>
+<div class="container">
+<div class="starter">
+<h1> 学习网址大全</h1>
+<p class="lead">
+<a href="http://www.yiiframework.com/doc-2.0/guide-index.html">PHP Yii框架详解</a>
+</p>
+</div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">哈哈！</h4>
+      </div>
+      <div class="modal-body">
+          <div id="layer-code-ask">
+              <p>
+                  没想到把
+              </p>
+          </div>
+          <div id="layer-code-success" style="display:none;">
+
+              <p>
+              傻逼！！！
+              </p>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn" class="btn btn-primary">确认</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$("#btn").on("click", function(){
+        $(this).hide();
+        $("#layer-code-ask").hide();
+        $("#layer-code-success").show();
+})
+</script>
+
+<script src="//cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+</html>
