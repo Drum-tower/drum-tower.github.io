@@ -1,0 +1,266 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>关于PHP写APP接口的安全问题探讨(一) - 小祥子</title>
+<meta name="keywords" content="关于PHP写APP接口的安全问题探讨(一)">
+<meta name="description" content="在探讨这个问题之前，先要确认一点的是，作为一名互联网Coder，无论你是前端或者后端你都要对http请求要有一定的了解，知道http特性，要清楚的了解http里面的Request与Response是什 ">
+<link rel="stylesheet" type="text/css" href="/static/css/base.css">
+<link rel="stylesheet" type="text/css" href="/static/css/list.css">
+<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/static/js/light.js"></script>
+</head>
+<body>
+<div class="container">
+<div class="top-menu-row">
+  <div class="row">
+      <div class="top-menu fr"> <a href="http://old.xiaoxiangzi.com/" rel="nofollow">进入旧版</a> </div>
+          <div class="notice-area fl"> <span id="x1"><a href="/tool/google.html" target="_blank" class="top-notice">上线Google搜索工具! 2015-03-27</a> </span></div>
+	    </div>
+	    </div>
+	    <!-- /.top-info -->
+	    <!-- /.top-login-box -->
+	    <div class="header">
+	      <div class="row">
+	          <div class="logo fl"><a href="/" title="小祥子">小祥子</a></div>
+		      <div class="search-form">
+		            <form action="/search.asp" method="post" rel="nofollow">
+			            <input type="hidden" value="1" name="m">
+				            <span class="key-sear">
+					            <input type="text" class="search-wrod" name="word" id="search_key" value="" autocomplete="off">
+						            </span>
+							            <button type="submit" class="search-btn">搜索</button>
+								          </form>
+									        <div class="search-keys"> <a href="/article/tag.asp?name=template" target="_blank" title="template">template</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CD%E2%BE%B0" target="_blank" title="外景">外景</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%C9%AB%B5%F7" target="_blank" title="色调">色调</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%C4%A3%BA%FD" target="_blank" title="模糊">模糊</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%BF%D9%CD%BC" target="_blank" title="抠图">抠图</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%C5%AF%C9%AB" target="_blank" title="暖色">暖色</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CB%E9%C6%AC%C4%A3%BF%E9" target="_blank" title="碎片模块">碎片模块</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%BC%C7%D7%A1" target="_blank" title="记住">记住</a>
+										 </div>
+										     </div>
+										       </div>
+										       </div>
+										       <!-- /.header -->
+										       <div class="mian-menu">
+										         <div class="row">
+											     <ul class="mian-nav" id="j_main_nav">
+											           <li class="home"><a href="/">首页</a></li>
+												         <li rel="1" class="menu_media"><a href="/News/">资讯</a></li>
+													 <li rel="2" class="menu_media"><a href="/Programme/">编程</a></li>
+													 <li rel="3" class="menu_media"><a href="/Code/">代码研究</a></li>
+													 <li rel="4" class="menu_media"><a href="/CMSTech/">CMS学院</a></li>
+													 <li rel="5" class="menu_media"><a href="/SoftTech/">软件教程</a></li>
+													 <li rel="6" class="menu_media"><a href="/Hire/">人才雇佣</a></li>
+													 <li rel="7" class="menu_media"><a href="/cool/">酷站欣赏</a></li>
+													 <li rel="8" class="menu_media"><a href="/Sale/">源码寄售</a></li>
+
+													       <li style="width:81px;"><a href="/tool/">工具</a></li>
+													           </ul>
+														     </div>
+														       <div class="sub-menu j-sub-menu-1" style="display: none;">
+														           <div class="sub-menu-in">
+															         <p class="s-nav-2"> <a href="/News/net/">互联网</a><i class="cccc">|</i>
+																 <a href="/News/game/">游戏</a><i class="cccc">|</i>
+																 <a href="/News/Business/">创业</a><i class="cccc">|</i>
+																 <a href="/News/Science/">科技</a> </p>
+																     </div>
+																       </div>
+																         <div class="sub-menu j-sub-menu-2" style="display: none;">
+																	     <div class="sub-menu-in">
+																	           <p class="s-nav-2"> <a href="/Programme/ASP/">ASP</a><i class="cccc">|</i>
+																		   <a href="/Programme/PHP/">PHP</a><i class="cccc">|</i>
+																		   <a href="/Programme/CSS/">CSS</a><i class="cccc">|</i>
+																		   <a href="/Programme/JavaScript/">JavaScript</a><i class="cccc">|</i>
+																		   <a href="/Programme/Python/">Python</a><i class="cccc">|</i>
+																		   <a href="/Programme/Life/">程序猿</a><i class="cccc">|</i>
+																		   <a href="/Programme/IOS/">IOS</a> </p>
+																		       </div>
+																		         </div>
+																			   <div class="sub-menu j-sub-menu-4" style="display:none;">
+																			       <div class="sub-menu-in">
+																			             <p class="s-nav-4"> <a href="/CMSTech/NewAsp/">新云</a><i class="cccc">|</i>
+																				     <a href="/CMSTech/DedeCMS/">织梦</a><i class="cccc">|</i>
+																				     <a href="/CMSTech/phpcms/">PHPCMS</a><i class="cccc">|</i>
+																				     <a href="/CMSTech/WordPress/">WordPress</a> </p>
+																				         </div>
+																					   </div>
+																					     <div class="sub-menu j-sub-menu-5" style="display:none;">
+																					         <div class="sub-menu-in">
+																						       <p class="s-nav-5"> <a href="/SoftTech/Photoshop/">Photoshop</a><i class="cccc">|</i>
+																						       <a href="/SoftTech/Flash/">Flash</a> </p>
+																						           </div>
+																							     </div>
+																							     </div>
+																							     <!-- /.mian-menu -->
+																							     <!-- /.mian-menu -->
+																							     <div class="row mt10">
+																							       <div class="lay-700 fl">
+																							           <div class="mark-bh">
+																								         <p>您所在的位置：<a href="/" class="imp">小祥子</a> <span class="ext">»</span> <a href="/Programme/" class="imp">编程</a> <span class="ext">»</span> <a href="/Programme/PHP/" class="imp">PHP</a> <span class="ext">»</span> <span class="art-pos-title c666">正文</span></p>
+																									     </div>
+																									         <div class="art-main">
+																										       <div class="art-top">
+																										               <h1>关于PHP写APP接口的安全问题探讨(一)</h1>
+																											               <div class="art-top-ext ext">
+																												                 <div class="top-share">
+																														           </div>
+																															             <span>时间：2015-05-30</span> <span>编辑：菜问</span> <span>来源：本站整理</span> </div>
+																																           </div>
+																																	         <div class="art-content">
+																																		         <div class="tmd-content"> <blockquote>
+																																			 <p>在探讨这个问题之前，先要确认一点的是，作为一名互联网Coder，无论你是前端或者后端你都要对http请求要有一定的了解，知道http特性，要清楚的了解http里面的Request与Response是什么，知道为什么网站会存在cookie，session，验证码的意义和必要性。因为探讨APP接口的安全性就是在探讨HTTP请求的安全性；</p>
+																																			 </blockquote>
+																																			 <p>我一般把APP接口分为三类，普通接口，表单接口，会员接口；<strong>本文重点讨论会员接口</strong></p>
+																																			 <h5>普通接口</h5>
+																																			 <p>一般为GET请求，比如获取新闻列表 <code>GET http://Example.com/index.<a target="_blank" href="http://www.xiaoxiangzi.com/Programme/PHP/">PHP</a>?module=news&amp;action=list</code>，为了防止采集或者暴力查询，我们PC端一般做如下处理:</p>
+																																			 <ol>
+																																			 <li>防止本站被它站file_get_contents，所以要识别user_agent，如果不是通过浏览器来访问的话直接不给看。<br></li>
+																																			 <li>如果别人通过伪造user_agent来访问的话，就通过单位时间ip的访问量来控制抓取方，可以写一套算法，如果再一个ip在前后一分钟多于多少次访问量来处理。<strong>但是，会有一种情况，即某个小区或公司内都是使用某一个IP的外网的话，这样搞就会自寻死路，所以还要配合浏览器中的cookie来处理</strong><br><strong>总结: 请求头可以伪造，IP地址可以变更，cookie可以清空，基本上PC端是很难防这个问题的，比如淘宝，点评等大站的数据我也是经常去采的</strong>。</li>
+																																			 </ol>
+																																			 <p>那APP端如何处理这个问题呢?我们可以抓点评APP的http请求包来看一下:</p>
+																																			 <pre><code>GET http://114.80.165.113/mapi/ugcuserfeeds.bin?filtertype=5&amp;userid=129059048&amp;token=73114c7e9a4485319542039cdff854d989f61e5821d306b3abf0fc9904eb51ff&amp;start=0 HTTP/1.1
+																																			 Host: 114.80.165.113
+																																			 Accept: */*
+																																			 pragma-appid: 351091731
+																																			 pragma-newtoken: c2032338f6abf96c8e2984db1655f2bac73b88f799e49aab4a426d414f994b5f
+																																			 pragma-token: 73114c7e9a4485319542039cdff854d989f61e5821d306b3abf0fc9904eb51ff
+																																			 pragma-dpid: 9214560561001942797
+																																			 pragma-device: 566fe5aeb75a827967fbad8356608134ba98a4a6
+																																			 Proxy-Connection: keep-alive
+																																			 pragma-os: MApi 1.1 (dpscope 7.5.0 appstore; iPhone 8.3 iPhone7,1; a0d0)
+																																			 Accept-Language: zh-cn
+																																			 network-type: wifi
+																																			 User-Agent: MApi 1.1 (dpscope 7.5.0 appstore; iPhone 8.3 iPhone7,1; a0d0) Paros/3.2.13 </code></pre>
+																																			 <p>当你直接访问<code>http://114.80.165.113/mapi/ugcuserfeeds.bin?filtertype=5&amp;userid=129059048&amp;token=73114c7e9a4485319542039cdff854d989f61e5821d306b3abf0fc9904eb51ff&amp;start=0</code>的时候,直接从服务器端给挡住,并返回450错误;<br><img src="/article/UploadPic/2015-5/201553013304230.png" border="0" onload="return imgzoom(this,600);"><br>PHP的服务器一般为Apache或Nignx,我们也可以在配置项中根据与客户端开发人员约定的一些自定义的Request头信息,比如上面的parama-*,在服务器配置项中可以获取到这些自定义的Request头信息,然后根据是否为约定好的Request信息,如果不是就rewrite到450;</p>
+																																			 <p>但是,我们通过抓包既可获得全部请求头信息,这时可以完全模拟请求头信息来获取数据;<br><img src="/article/UploadPic/2015-5/201553013304772.png" border="0" onload="return imgzoom(this,600);"></p>
+																																			 <p>很多APP最多到此步既可获得该API接口的数据,而且是非常便于处理的<a target="_blank" href="http://www.xiaoxiangzi.com/Programme/JavaScript/">JS</a>on格式,而点评APP到此处直接返回的是一堆看上去是经过压缩的乱码数据:<br><img src="/article/UploadPic/2015-5/201553013304852.png" border="0" onload="return imgzoom(this,600);"><br>这有点类似于PC端gzip，服务器端返回的是gzip的压缩数据，而浏览器来解压这个gzip来获取真正的数据，然后再显示出来;<br>我不知道点评的这个乱码数据是否也是这个原理，如果是的话，不得不说真的是"棒棒哒"，因为解压的算法是发生在自己的APP端，这不仅保证了数据的安全性，而且还节省带宽流量，加快的数据传输速度。具体是怎么样做的，暂时还不得而知；</p>
+																																			 <h5>表单接口</h5>
+																																			 <p>即类似html中的from表单，主要是往服务器提交数据的。一般是post方式的http请求，主要的危险是来自于强刷HTTP请求，撑爆数据库;在PC端我们一般通过验证码来解决这个问题,而在APP端,我能想到的也只有通过验证码的方式,只不过PC端的是把验证码存进session,而APP端是存进cache里面；但如果加上验证码的话，在用户体验上肯定会大打折扣，关于这一点肯定有更好的方式解决，具体怎么解决，暂时还不得而知；</p>
+																																			 <h4>会员接口</h4>
+																																			 <p>所谓会员接口，就是类似<code>http://Example.com/index.php?module=users&amp;action=info&amp;user_id=333</code>的请求，然后服务器端直接根据user_id来做相应的会员操作，这是及其危险的接口处理，等于把当前的会员系统全暴露出来了,只要对方改一下user_id既可操作所有会员对应的接口。<br>一般在PC端，我们是通过加密的cookie来做会员的辨识和维持会话的；但是cookie是属于浏览器的本地存储功能。APP端不能用，所以我们得通过token参数来辨识会员；而这个token该如何处理呢？</p>
+																																			 <p>首先,先说说在做该接口加密前，我一共经历的四个方案：</p>
+																																			 <p><strong>方案一</strong><br>与APP端开发人员约定特定的md5组合算法，然后两端比对一下，如果相同就allow，不相同就deny；<br>但是，这也是不安全的，如果APP程序被反编译，这些约定的算法就会暴露，特别是在安卓APP中，有了算法，完全就可以模拟接口请求通过验证；</p>
+																																			 <p><strong>方案二</strong><br>数据库会员表的password是带上了随机密窜并经过双重加密的md5值;在用户登录的时候,我返回会员相应的uid和password,password虽然是明文的,别人知道也不能登录,毕竟是经过加密的,然后每次请求接口的时候<code>user_id=333&amp;token=aa37e10c7137ac849eab8a2d5020568f</code>,通过主键uid可以很快的找到当前uid对应的token,然后再来比对;<br>但是这样想法是too yang too simple的,抓包的人虽然不能通过密文密码来登录该会员,然而一旦知道了这个token,除非用户更改密码,否则也可以一直通过这个token来操作该会员的相关接口;</p>
+																																			 <p><strong>方案三</strong><br>通过对称加密算法，该加密算法对<code>uid+网站公钥</code>进行时效加密，在一定时效内可用。在会员登录成功时，服务器端对该ID加密后返回给客户端，客户端每次请求接口的时候带上该参数，服务器端通过解密认证；<br>但是这样做，也是不安全的。因为，防外不防内，听说这次的携程宕机就是因为内部离职人员的恶意操作。内部不怀好意的人员如果知道相应的算法规则后，就算没有数据库权限，也可以通过接口来操作相关会员；</p>
+																																			 <p><strong>方案四</strong><br>会员登录的时候请求登录接口，然后服务器端返回给客户端一个token，该token生成的规则是 <code>网站公钥 + 当前uid + 当前时间戳 + 一段随机数</code>双重加密，根据需求决定是把该token放进cache等一段时间自动失效，还是放进数据库（如果要放进数据库的话，单独拎出一张表来，顺便记录用户的登录，登出时间），在用户登出登录的时候改变一下，确保该token只能在用户人为登出登录之间有用。<br>为保安全，应保证让用户在一段时间内自动退出；此方案配合Linux和数据库的权限管理可以防外又防内；</p>
+																																			 <h4>其他接口开发的注意事项</h4>
+																																			 <ol>
+																																			 <li>数据格式最好使用JSON格式数据，因为JSON有较好的跨平台性。在生成JSON的时候，要注意json的两种格式：对象（字典） 与 数组；mobile端开发语言中没有类似PHP中的foreach不能遍历对象，只能遍历数组，他们对对象的操作一般都是通过键名去取键值。<br></li>
+																																			 <li>不管是成功，还是失败。接口必须提供明确的数据状态信息，并且不能返回NULL，如果返回NULL的话，在IOS端会崩掉。</li>
+																																			 </ol> </div>
+																																			         <div class="keys-box">关键词：<a href="/article/tag.asp?name=PHP" target="_blank">PHP</a> <a href="/article/tag.asp?name=%B0%B2%C8%AB" target="_blank">安全</a>  </div>
+																																				       </div>
+																																				           </div>
+																																					       <div class="art-other-list mt15">
+																																					             <div class="art-bh">
+																																						             <h2 class="h3">相关文章</h2>
+																																							           </div>
+																																								         <ul class="txt-list clearfix">
+																																									 	  	<li><a href="/Programme/PHP/7046.html" class="c666" target="_blank">PHP学习笔记1-常量，函数</a></li>
+																																											<li><a href="/Programme/PHP/6867.html" class="c666" target="_blank">30 个 PHP 的 Excel 处理类</a></li>
+																																											<li><a href="/News/net/6839.html" class="c666" target="_blank">iDoNews专栏：比亚迪被爆安全漏洞，“互联...</a></li>
+																																											<li><a href="/Programme/PHP/6765.html" class="c666" target="_blank">PHP代码优化技巧大盘点</a></li>
+																																											<li><a href="/News/net/6734.html" class="c666" target="_blank">黑莓CEO程守宗：将打造最安全的Android手...</a></li>
+																																											<li><a href="/Programme/PHP/6663.html" class="c666" target="_blank">PHP错误：Forbidden You don't have ...</a></li>
+																																											<li><a href="/Programme/PHP/6601.html" class="c666" target="_blank">PHP Session可能会引起并发问题</a></li>
+																																											<li><a href="/Programme/PHP/6536.html" class="c666" target="_blank">PHP将Excel导入数据库以及数据库数据导出...</a></li>
+																																											<li><a href="/Programme/PHP/6485.html" class="c666" target="_blank">PHP求职宝典系列——PHP Web 编程篇</a></li>
+																																											<li><a href="/News/Business/6352.html" class="c666" target="_blank">投资安全狗，IDG有多么看好互联网安全？</a></li>
+																																											<li><a href="/Programme/PHP/6293.html" class="c666" target="_blank">PHP PDO select语句结果行数计算</a></li>
+																																											<li><a href="/News/Business/5756.html" class="c666" target="_blank">360发布三款安全路由器:最低售59元</a></li>
+
+																																											      </ul>
+																																											          </div>
+																																												    </div>
+																																												      <!-- /.lay-700 -->
+																																												        <div class="lay-280 fr">
+																																													    <div class="sider-title"> <span class="mark">本类热门</span> </div>
+																																													        <ul class="app-txt-list side-txt-list clearfix">
+																																														      <li><a href="/Programme/PHP/464.html" class="name h3" target="_blank">PHP获取微信access_token的方法函数...</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/292.html" class="name h3" target="_blank">PHP三元运算符问号加冒号</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/297.html" class="name h3" target="_blank">PHP常见错误类型及屏蔽方法</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/526.html" class="name h3" target="_blank">PHP获取网址中的域名方法函数</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/177.html" class="name h3" target="_blank">使用Yii框架需要注意的一些事项</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/6995.html" class="name h3" target="_blank">配置php5.6的运行环境</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/1382.html" class="name h3" target="_blank">php5.2.3连接sqlserver2008</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/1030.html" class="name h3" target="_blank">rabbitmq  web管理界面无法使用gues...</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/3325.html" class="name h3" target="_blank">PHP环境搭建-WAMP+Zend</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/626.html" class="name h3" target="_blank">几款主流PHP框架的优缺点评比</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/103.html" class="name h3" target="_blank">提高PHP开发效率常用技巧</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+																																														      <li><a href="/Programme/PHP/6601.html" class="name h3" target="_blank">PHP Session可能会引起并发问题</a>
+																																														      <p class="ext"></p>
+																																														      </li>
+
+																																														          </ul>
+																																															      <div class="onlytab site-keys mt10">
+																																															            <ul class="mod-tab" rel="xtaberTabs">
+																																																            <li rel="xtaberTabItem" class="current">随机推荐</li>
+																																																	            <li rel="xtaberTabItem">热门关键字</li>
+																																																		          </ul>
+																																																			        <div class="sub-tab-wrap" rel="xtaberItems">
+																																																				        <ul class="softs-list xtaber-item" style="display: block;">
+																																																					          <li><a href="/Programme/PHP/464.html" target="_blank">PHP获取微信access_token的方法函数...</a></li>
+																																																						  <li><a href="/Programme/PHP/292.html" target="_blank">PHP三元运算符问号加冒号</a></li>
+																																																						  <li><a href="/Programme/PHP/297.html" target="_blank">PHP常见错误类型及屏蔽方法</a></li>
+																																																						  <li><a href="/Programme/PHP/526.html" target="_blank">PHP获取网址中的域名方法函数</a></li>
+																																																						  <li><a href="/Programme/PHP/177.html" target="_blank">使用Yii框架需要注意的一些事项</a></li>
+																																																						  <li class="line"><a href="/Programme/PHP/6995.html" target="_blank">配置php5.6的运行环境</a></li>
+																																																						  <li><a href="/Programme/PHP/1382.html" target="_blank">php5.2.3连接sqlserver2008</a></li>
+																																																						  <li><a href="/Programme/PHP/1030.html" target="_blank">rabbitmq  web管理界面无法使用gues...</a></li>
+																																																						  <li><a href="/Programme/PHP/3325.html" target="_blank">PHP环境搭建-WAMP+Zend</a></li>
+																																																						  <li><a href="/Programme/PHP/626.html" target="_blank">几款主流PHP框架的优缺点评比</a></li>
+																																																						  <li><a href="/Programme/PHP/103.html" target="_blank">提高PHP开发效率常用技巧</a></li>
+																																																						  <li><a href="/Programme/PHP/6601.html" target="_blank">PHP Session可能会引起并发问题</a></li>
+
+																																																						          </ul>
+																																																							          <div class="xtaber-item" style="display: none;">
+																																																								            <div class="hot-tags-list clearfix" id="hottags"> 
+																																																									    		  <a href="/article/tag.asp?name=%C0%B8%C4%BF" target="_blank" title="栏目" style="color: rgb(255, 0, 0); font-size: 16px;">栏目</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=conn" target="_blank" title="conn" style="font-size: 16px;">conn</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D0%DE%B8%B4" target="_blank" title="修复" style="font-size: 16px;">修复</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B0%D9%B6%C8%B5%D8%CD%BC" target="_blank" title="百度地图" style="font-size: 12px;">百度地图</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D7%AA%BB%BB" target="_blank" title="转换" style="color: rgb(0, 153, 0); font-size: 14px;">转换</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CD%F8%D5%BE%B8%C4%B0%E6" target="_blank" title="网站改版" style="color: rgb(0, 153, 255); font-size: 12px;">网站改版</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CB%F5%B7%C5" target="_blank" title="缩放" style="color: rgb(0, 0, 255); font-size: 16px;">缩放</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B9%C9%BC%DB" target="_blank" title="股价" style="font-size: 14px;">股价</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%BC%C7%C2%BC%BC%AF" target="_blank" title="记录集" style="font-size: 12px;">记录集</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%BF%C9%D0%B4" target="_blank" title="可写" style="font-size: 12px;">可写</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B5%E3%BB%F7" target="_blank" title="点击" style="color: rgb(0, 0, 255); font-size: 12px;">点击</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B5%DA%D2%BB%D5%C5" target="_blank" title="第一张" style="color: rgb(0, 153, 0); font-size: 14px;">第一张</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=recordset" target="_blank" title="recordset" style="color: rgb(0, 0, 255); font-size: 12px;">recordset</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=ul" target="_blank" title="ul" style="font-size: 16px;">ul</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D2%FE%B2%D8%D7%AA%B7%A2" target="_blank" title="隐藏转发" style="color: rgb(255, 0, 0); font-size: 14px;">隐藏转发</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B7%C5%B4%F3" target="_blank" title="放大" style="color: rgb(0, 153, 0); font-size: 14px;">放大</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B7%C0%CF%C2%D4%D8" target="_blank" title="防下载" style="color: rgb(0, 0, 255); font-size: 14px;">防下载</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D1%D5%C9%AB" target="_blank" title="颜色" style="color: rgb(0, 153, 0); font-size: 12px;">颜色</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B7%C0%B5%C1%C1%B4" target="_blank" title="防盗链" style="color: rgb(255, 102, 0); font-size: 12px;">防盗链</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D5%E6%CA%B5IP" target="_blank" title="真实IP" style="color: rgb(255, 0, 0); font-size: 16px;">真实IP</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CD%BC%BC%AF" target="_blank" title="图集" style="font-size: 12px;">图集</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B2%E9%D1%AF" target="_blank" title="查询" style="color: rgb(0, 153, 255); font-size: 12px;">查询</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CA%F4%D0%D4" target="_blank" title="属性" style="font-size: 16px;">属性</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B1%A9%B7%E7%D3%B0%D2%F4" target="_blank" title="暴风影音" style="color: rgb(0, 0, 255); font-size: 12px;">暴风影音</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%C5%D0%B6%CF%D3%EF%BE%E4" target="_blank" title="判断语句" style="color: rgb(255, 0, 0); font-size: 12px;">判断语句</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CB%F5%C2%D4%CD%BC" target="_blank" title="缩略图" style="font-size: 16px;">缩略图</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B4%B4%D2%B5%D5%DF" target="_blank" title="创业者" style="color: rgb(0, 153, 0); font-size: 14px;">创业者</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D5%D5%C6%AC" target="_blank" title="照片" style="font-size: 12px;">照片</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D7%DC%C0%ED" target="_blank" title="总理" style="font-size: 14px;">总理</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CD%F8%D5%BE%B5%D8%CD%BC" target="_blank" title="网站地图" style="color: rgb(0, 0, 255); font-size: 12px;">网站地图</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%C9%E8%D6%C3" target="_blank" title="设置" style="font-size: 12px;">设置</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%CD%F5%C8%F1%D0%F1" target="_blank" title="王锐旭" style="font-size: 14px;">王锐旭</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=relative" target="_blank" title="relative" style="font-size: 12px;">relative</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B4%B4%CA%BC%C8%CB" target="_blank" title="创始人" style="color: rgb(255, 0, 0); font-size: 16px;">创始人</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B0%B2%C8%AB" target="_blank" title="安全" style="font-size: 12px;">安全</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%BC%E6%D6%B0%C3%A8" target="_blank" title="兼职猫" style="color: rgb(0, 153, 0); font-size: 12px;">兼职猫</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D1%A1%D4%F1" target="_blank" title="选择" style="color: rgb(0, 153, 255); font-size: 14px;">选择</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=RND" target="_blank" title="RND" style="color: rgb(255, 102, 0); font-size: 12px;">RND</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%D5%E6%CA%B5%B5%D8%D6%B7" target="_blank" title="真实地址" style="color: rgb(0, 153, 0); font-size: 14px;">真实地址</a>&nbsp;&nbsp;<a href="/article/tag.asp?name=%B1%A8%B4%ED" target="_blank" title="报错" style="color: rgb(0, 0, 255); font-size: 14px;">报错</a>
+
+																																																											  		  </div>
+																																																													          </div>
+																																																														        </div>
+																																																															    </div>
+																																																															      </div>
+																																																															        <!-- /.lay-280 -->
+																																																																</div>
+																																																																<!-- /.row -->
+																																																																<script language="JavaScript" type="text/javascript">
+																																																																 var PageClass=2;
+																																																																  listPageInit();
+																																																																  </script>
+																																																																  <div class="footer">
+																																																																      <p class="site-link"> <a href="/html/about.html" class="c666">关于我们</a> | <a href="/html/advertise.html" class="c666">广告合作</a> | <a href="/html/declare.html" class="c666">网站声明</a> | <a href="/html/link.html" class="c666">友情链接</a> | <a href="/html/tags.html" class="c666">标签云</a> | <a href="/html/contact.html" class="c666">联系我们</a> | <a href="http://old.xiaoxiangzi.com/" class="c666">进入旧版</a> | <a href="/html/contact.html" class="c666">联系我们</a> | <a href="http://m.xiaoxiangzi.com/" class="c666" target="_blank">手机版</a> | <a href="/sitemap.xml" class="c666">SiteMap</a> </p>
+																																																																          <p class="site-desc"> 小祥子是免费提供互联网资讯,互联网技术,CMS教程,与此同时您可以在小祥子上雇佣互联网人才,发布或接任务订单! </p>
+																																																																	      <p class="copy-right">Copyright 2008-2015 小祥子(www.xiaoxiangzi.com). 蜀ICP备08011603号 联系方式：<span class="email"></span></p>
+																																																																	         <div style="display:none">
+																																																																		    <script src="http://s4.cnzz.com/stat.php?id=4374147&amp;web_id=4374147" language="JavaScript"></script><script src="http://c.cnzz.com/core.php?web_id=4374147&amp;t=z" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=4374147" target="_blank" title="站长统计">站长统计</a>
+																																																																		       </div>
+																																																																		           <div class="rz-box"> <img src="/static/images/rz_pic_1.png" data-original="/static/images/rz_pic_1.png" style="display: inline;"> <img src="/static/images/rz_pic_2.png" data-original="/static/images/rz_pic_2.png" style="display: inline;"> <img src="/static/images/rz_pic_3.png" data-original="/static/images/rz_pic_3.png" style="display: inline;"> <img src="/static/images/rz_pic_4.png" data-original="/static/images/rz_pic_4.png" style="display: inline;"> </div>
+																																																																			     </div>
+																																																																			       <!-- /.footer -->
+																																																																			       </div>
+																																																																			       <!-- /.container -->
+
+																																																																			       <div class="gotop" id="j_gotop" style="display: none;"><a href="javascript:;"></a></div>
+																																																																			       <script type="text/javascript" src="/static/js/common.js"></script>
+
+
+
+																																																																			       <script language="JavaScript" src="/article/hits.asp?id=4620&amp;type=0"></script><div style="position: static; width: 0px; height: 0px; border: none; padding: 0px; margin: 0px;"><div id="trans-tooltip"><div id="tip-left-top" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left-top.png);"></div><div id="tip-top" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-top.png) repeat-x;"></div><div id="tip-right-top" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right-top.png);"></div><div id="tip-right" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right.png) repeat-y;"></div><div id="tip-right-bottom" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-right-bottom.png);"></div><div id="tip-bottom" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-bottom.png) repeat-x;"></div><div id="tip-left-bottom" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left-bottom.png);"></div><div id="tip-left" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-left.png);"></div><div id="trans-content"></div></div><div id="tip-arrow-bottom" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-arrow-bottom.png);"></div><div id="tip-arrow-top" style="background: url(chrome-extension://ikkbfngojljohpekonpldkamedehakni/imgs/map/tip-arrow-top.png);"></div></div></body></html>
